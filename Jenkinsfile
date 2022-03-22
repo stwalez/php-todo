@@ -14,7 +14,7 @@ pipeline {
 
     stage('Checkout SCM') {
       steps {
-            git branch: 'main', url: 'https://github.com/stwalez/php-todo.git'
+            git branch: 'new-features', url: 'https://github.com/stwalez/php-todo.git'
       }
     }
 
@@ -59,7 +59,7 @@ pipeline {
     }
 
     stage('SonarQube Quality Gate') {
-      when { branch pattern: "^develop*|^hotfix*|^release*|^main*|^new*", comparator: "REGEXP"}
+      when { branch pattern: "^develop*|^hotfix*|^release*|^main*|^new-features*", comparator: "REGEXP"}
         environment {
             scannerHome = tool 'sonarqubescanner'
         }
