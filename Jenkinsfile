@@ -8,7 +8,6 @@ pipeline {
             dir("${WORKSPACE}") {
               deleteDir()
             }
-            echo "Running ${env.JOB_NAME} and ${CURRENT_JOB}"
           }
 
         }
