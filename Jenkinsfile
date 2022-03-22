@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+  environment {
+    CURRENT_JOB = "${JOB_NAME}"
+  }
+
   stages {
 
      stage("Initial cleanup") {
@@ -8,7 +12,9 @@ pipeline {
             dir("${WORKSPACE}") {
               deleteDir()
             }
+            echo "Running ${env.JOB_NAME} and ${CURRENT_JOB}"
           }
+
         }
 
     stage('Checkout SCM') {
@@ -100,7 +106,7 @@ pipeline {
 
     stage ('Deploy to Dev Environment') {
       steps {
-        build job: 'ansible-config-mgt/main', parameters: [[$class: 'StringParameterValue', name: 'env', value: 'dev'], [$class: 'StringParameterValue', name: 'tags', value: 'deploy_to_dev']], propagate: false, wait: true
+        build job: 'ansible-config-mgt/feature/jenkinspipeline-stages', parameters: [[$class: 'StringParameterValue', name: 'env', value: 'dev'], [$class: 'StringParameterValue', name: 'tags', value: 'deploy_to_dev'], [$class: 'StringParameterValue', name: 'var_jenkins_job', value: '${CURRENT_JOB}']], propagate: false, wait: true
       }
     }
   }
