@@ -101,7 +101,7 @@ pipeline {
 
     stage ('Deploy to Dev Environment') {
       steps {
-        build job: 'ansible-config-mgt/feature/jenkinspipeline-stages', parameters: [[$class: 'StringParameterValue', name: 'env', value: 'dev'], [$class: 'StringParameterValue', name: 'tags', value: 'deploy_to_dev'], [$class: 'StringParameterValue']], propagate: false, wait: true
+        build job: 'ansible-config-mgt/main', parameters: [[$class: 'StringParameterValue', name: 'env', value: 'dev'], [$class: 'StringParameterValue', name: 'tags', value: 'deploy_to_dev'], [$class: 'StringParameterValue']], propagate: false, wait: true
       }
     }
   }
