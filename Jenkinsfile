@@ -60,7 +60,7 @@ pipeline {
     }
 
     stage('SonarQube Quality Gate') {
-      when { branch pattern: "main", comparator: "REGEXP"}
+      when { branch pattern: "^new-features", comparator: "REGEXP"}
         environment {
             scannerHome = tool 'sonarqubescanner'
         }
