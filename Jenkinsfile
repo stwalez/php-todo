@@ -14,6 +14,7 @@ pipeline {
 
     stage('Checkout SCM') {
       steps {
+
             git branch: 'main', url: 'https://github.com/stwalez/php-todo.git'
       }
     }
@@ -59,7 +60,7 @@ pipeline {
     }
 
     stage('SonarQube Quality Gate') {
-      when { branch pattern: "^develop*|^hotfix*|^release*|^main*|^new*", comparator: "REGEXP"}
+      when { branch pattern: "^develop*|^hotfix*|^release*|^main*", comparator: "REGEXP"}
         environment {
             scannerHome = tool 'sonarqubescanner'
         }
@@ -101,7 +102,7 @@ pipeline {
 
     stage ('Deploy to Dev Environment') {
       steps {
-        build job: 'ansible-config-mgt/main', parameters: [[$class: 'StringParameterValue', name: 'env', value: 'dev'], [$class: 'StringParameterValue', name: 'tags', value: 'deploy_to_dev'], [$class: 'StringParameterValue']], propagate: false, wait: true
+        build job: 'ansible-config-mgt/main', parameters: [[$class: 'StringParameterValue', name: 'env', value: 'dev'], [$class: 'StringParameterValue', name: 'tags', value: 'deploy_to_dev']], propagate: false, wait: true
       }
     }
   }
