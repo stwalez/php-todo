@@ -26,9 +26,6 @@ pipeline {
 
       stage('Building the features branch image') { 
               when { branch pattern: "^jenkins-feature*", comparator: "REGEXP"}
-              environment {
-                branch_name = 'features'
-              }
               steps { 
                   script { 
                       sh 'echo building the image'
@@ -38,9 +35,6 @@ pipeline {
           }
       stage('Building the jenkins main branch image') { 
               when { branch pattern: "^jenkins-main*", comparator: "REGEXP"}
-              environment {
-                branch_name = 'main'
-              }
               steps { 
                   script { 
                       sh 'echo building the image'
@@ -60,7 +54,7 @@ pipeline {
       
       stage('Cleaning up') { 
           steps { 
-              sh "docker rmi $registry:$BUILD_NUMBER" 
+              sh "docker rmi $registry:$branch_name-$BUILD_NUMBER" 
           }
       } 
     }
