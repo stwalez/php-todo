@@ -20,7 +20,6 @@ pipeline {
 
     stage('Checkout SCM') {
       steps {
-
             git branch: 'jenkins-main', url: 'https://github.com/stwalez/php-todo.git'
       }
     }
@@ -28,6 +27,7 @@ pipeline {
     stage('Building our image') { 
             steps { 
                 script { 
+                    sh 'echo building the image'
                     dockerImage = docker.build registry + ":$BUILD_NUMBER" 
                 }
             } 
